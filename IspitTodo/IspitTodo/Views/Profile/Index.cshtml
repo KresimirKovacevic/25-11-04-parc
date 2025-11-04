@@ -1,0 +1,10 @@
+﻿@if(ViewBag.CurrUser != null)
+{
+        <h1>Welcome, @ViewBag.CurrUser.UserName!</h1>
+        <a class="btn btn-success btn-lg float-lg-start" asp-controller="Todolist" asp-action="Index">View Todo Lists</a>
+        <a class="btn btn-success btn-lg float-lg-end" asp-controller="Task" asp-action="Index">View All Tasks</a>
+}
+else
+{
+    <h1 class="alert-danger">ERROR - NO USER DATA FOUND</h1>
+}

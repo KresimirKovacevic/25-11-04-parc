@@ -1,1 +1,1 @@
-# 25-11-04-parc
+# Rješenje za parcijalni ispit 4.11.2025.

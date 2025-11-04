@@ -1,0 +1,71 @@
+﻿@model IspitTodo.Models.Todolist
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Todolist</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.DisplayNameFor(model => model.User): @ViewBag.UserName
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@foreach (var task in ViewBag.Tasks)
+{
+    @if (!task.Status)
+    {
+        <dl class="row">
+            <dt class="col-sm-2">
+                Task Title
+            </dt>
+            <dd class="col-sm-10">
+                @task.Title
+            </dd>
+            <dt class="col-sm-2">
+                Description
+            </dt>
+            <dd class="col-sm-10">
+                @task.Description
+            </dd>
+        </dl>
+        <form method="post" asp-controller="Todolist" asp-action="FinishTask">
+            <input type="hidden" name="taskId" value="@task.Id" />
+            <input type="submit" class="btn btn-primary" value="Finish Task" />
+        </form>
+    }
+}
+<form method="post" asp-controller="Todolist" asp-action="CreateTask">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <label for="fname">Task name:</label><br>
+    <input type="text" id="taskTitle" name="taskTitle" required="required" pattern="*{1,50}"><br>
+    <label for="lname">Task description:</label><br>
+    <input type="text" id="taskDesc" name="taskDesc">
+    <input type="hidden" name="todolistId" value="@Model.Id" />
+    <input type="submit" class="btn btn-primary" value="Add Task" />
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

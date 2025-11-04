@@ -1,0 +1,50 @@
+﻿@model IspitTodo.Models.Todolist
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Todolist</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.User)
+        </dt>
+        <dd class = "col-sm-10">
+            @ViewBag.UserName
+        </dd>
+        </dl>
+        @foreach(var task in ViewBag.Tasks)
+        {
+            @if (!task.Status)
+            {
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        Task Title
+                    </dt>
+                    <dd class="col-sm-10">
+                        @task.Title
+                    </dd>
+                    <dt class="col-sm-2">
+                        Description
+                    </dt>
+                    <dd class="col-sm-10">
+                        @task.Description
+                    </dd>
+                </dl>
+            }
+        }
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
